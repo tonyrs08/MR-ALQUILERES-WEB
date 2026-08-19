@@ -1,0 +1,23 @@
+{
+  "name": "MR Alquileres",
+  "short_name": "MR Alquileres",
+  "description": "Alquiler de Sillas, Mesas y Mobiliario en La Chorrera, Panamá, Arraiján",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#051024",
+  "theme_color": "#f0a500",
+  "icons": [
+    {
+      "src": "img/logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "img/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "orientation": "portrait",
+  "lang": "es-PA"
+}

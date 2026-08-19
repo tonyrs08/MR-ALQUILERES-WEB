@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MR Alquileres | Alquiler de Sillas y Mesas en La Chorrera y Panamá Oeste</title>
+    <meta name="description"
+        content="Alquiler de sillas, mesas y manteles para fiestas en La Chorrera y Panamá Oeste. Entra a nuestro catálogo, mira los precios y pide por WhatsApp.">
+
+    <!-- Favicon / Ícono de la pestaña -->
+    <link rel="icon" type="image/jpeg" href="img/logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="img/logo.jpg">
+    <link rel="apple-touch-icon" href="img/logo.jpg">
+
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MR Alquileres | Mobiliario Premium para Eventos">
+    <meta property="og:description"
+        content="Alquiler de sillas, mesas y accesorios en La Chorrera, Arraiján y Panamá. Garantizamos calidad y elegancia.">
+    <meta property="og:image" content="https://mralquileres-web.web.app/img/galeria-11.jpg">
+    <meta property="og:url" content="https://mralquileres-web.web.app/">
+    
+    <!-- Datos Estructurados JSON-LD (SEO Local) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "MR Alquileres",
+      "image": "https://mralquileres-web.web.app/img/logo.jpg",
+      "telephone": "+50761130277",
+      "email": "mralquileres29@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "La Chorrera",
+        "addressRegion": "Panamá Oeste",
+        "addressCountry": "PA"
+      },
+      "description": "Alquiler de sillas, mesas, toldas y manteles para eventos y fiestas en La Chorrera y Panamá Oeste.",
+      "priceRange": "$$"
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css?v=19">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="manifest" href="manifest.json">
+    <!-- Script para animaciones y catálogo -->
+    <script src="script.js?v=19" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#" class="marca-logo">
+                <img src="img/logo.jpg" alt="MR Alquileres" class="logo-img" onerror="this.style.display='none'">
+                <span class="nombre-empresa">MR ALQUILERES</span>
+            </a>
+
+            <nav>
+                <a href="#inicio">Inicio</a>
+                <a href="#catalogo">Catálogo</a>
+                <a href="#calculadora">Calculadora</a>
+                <a href="#galeria">Galería</a>
+                <a href="#faq">Preguntas Frecuentes</a>
+                <a href="#cotizar">Cotizar</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="inicio" class="hero reveal">
+            <div class="container hero-container">
+                <div class="hero-text">
+                    <h1>El Mobiliario perfecto para tus eventos</h1>
+                    <p>Alquiler de sillas, mesas y accesorios en La Chorrera, Arraiján y Panamá. Garantizamos calidad y
+                        puntualidad.</p>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <a href="#catalogo" class="btn"><i class="fa-solid fa-chair"></i> Ver Catálogo</a>
+                        <a href="#calculadora" class="btn" style="background: transparent; border: 2px solid var(--primary); color: #fff;"><i class="fa-solid fa-calculator"></i> Calcular Mobiliario</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="img/galeria-11.jpg" alt="Montaje de mesas con manteles para eventos"
+                        class="hero-img-main">
+                </div>
+            </div>
+        </section>
+
+        <!-- NUESTRO CATÁLOGO -->
+        <section id="catalogo" class="container">
+            <div class="titulo-centro">
+                <h3>Nuestro Catálogo</h3>
+            </div>
+
+            <!-- Filtros del Catálogo -->
+            <div class="filtros-catalogo">
+                <button class="btn-filtro active" data-filter="todos">Todos</button>
+                <button class="btn-filtro" data-filter="sillas">Sillas</button>
+                <button class="btn-filtro" data-filter="mesas">Mesas</button>
+                <button class="btn-filtro" data-filter="toldas">Toldas</button>
+                <button class="btn-filtro" data-filter="otros">Otros</button>
+            </div>
+
+            <div class="grid-productos" id="lista-productos">
+                <!-- Los productos se cargarán dinámicamente vía Javascript -->
+            </div>
+        </section>
+
+        <!-- CALCULADORA DE EVENTOS -->
+        <section id="calculadora" class="container reveal">
+            <div class="titulo-centro">
+                <span style="color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; display: block; margin-bottom: 8px;">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Herramienta Rápida
+                </span>
+                <h3>¿Cuántos invitados tienes?</h3>
+                <p style="color: var(--text-muted); max-width: 620px; margin: 0 auto;">Elige la cantidad de personas y el tipo de mesas que prefieres. Calcularemos al instante las sillas, mesas y manteles ideales para tu fiesta.</p>
+            </div>
+
+            <div class="tarjeta calculadora-card">
+                <div class="calc-grid">
+                    <!-- Configuración y Sliders -->
+                    <div class="calc-config">
+                        <div class="calc-group">
+                            <div class="calc-label-header">
+                                <label class="calc-label"><i class="fa-solid fa-users"></i> Número de Personas:</label>
+                                <span class="calc-badge-val" id="calc-badge-personas">50 invitados</span>
+                            </div>
+                            
+                            <div class="calc-presets">
+                                <button type="button" class="btn-preset" data-val="20">20</button>
+                                <button type="button" class="btn-preset" data-val="30">30</button>
+                                <button type="button" class="btn-preset active" data-val="50">50</button>
+                                <button type="button" class="btn-preset" data-val="80">80</button>
+                                <button type="button" class="btn-preset" data-val="100">100</button>
+                                <button type="button" class="btn-preset" data-val="150">150</button>
+                            </div>
+
+                            <div class="calc-slider-box">
+                                <input type="range" id="calc-range-invitados" min="10" max="250" step="5" value="50" class="calc-slider">
+                                <div class="calc-slider-ticks">
+                                    <span>10</span>
+                                    <span>50</span>
+                                    <span>100</span>
+                                    <span>150</span>
+                                    <span>200</span>
+                                    <span>250</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="calc-options-grid">
+                            <!-- Tipo de Silla -->
+                            <div class="calc-option-block">
+                                <span class="calc-subheading"><i class="fa-solid fa-chair"></i> Tipo de Sillas:</span>
+                                <div class="calc-custom-radios">
+                                    <label class="calc-radio-card active">
+                                        <input type="radio" name="calc-silla" value="p1" checked>
+                                        <div class="calc-radio-text">
+                                            <strong>Plásticas</strong>
+                                            <span>$0.50 c/u</span>
+                                        </div>
+                                    </label>
+                                    <label class="calc-radio-card">
+                                        <input type="radio" name="calc-silla" value="p2">
+                                        <div class="calc-radio-text">
+                                            <strong>Plegables</strong>
+                                            <span>$1.00 c/u</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Tipo de Mesa -->
+                            <div class="calc-option-block">
+                                <span class="calc-subheading"><i class="fa-solid fa-table"></i> Tipo de Mesas:</span>
+                                <div class="calc-custom-radios">
+                                    <label class="calc-radio-card active">
+                                        <input type="radio" name="calc-mesa" value="p4" checked>
+                                        <div class="calc-radio-text">
+                                            <strong>Rectangulares</strong>
+                                            <span>(6 pers) $6.00</span>
+                                        </div>
+                                    </label>
+                                    <label class="calc-radio-card">
+                                        <input type="radio" name="calc-mesa" value="p3">
+                                        <div class="calc-radio-text">
+                                            <strong>Cuadradas</strong>
+                                            <span>(4 pers) $3.00</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Adicionales (Manteles / Toldas) -->
+                        <div class="calc-extras-grid">
+                            <label class="calc-checkbox-card" id="calc-card-manteles">
+                                <input type="checkbox" id="calc-check-manteles" checked>
+                                <span class="calc-checkmark"></span>
+                                <div class="calc-extra-info">
+                                    <strong><i class="fa-solid fa-rug"></i> Manteles (Mesas cuadradas)</strong>
+                                    <span id="calc-manteles-subtext">Variedad de colores ($1.50 c/u)</span>
+                                </div>
+                            </label>
+                            <label class="calc-checkbox-card">
+                                <input type="checkbox" id="calc-check-toldas">
+                                <span class="calc-checkmark"></span>
+                                <div class="calc-extra-info">
+                                    <strong><i class="fa-solid fa-campground"></i> Tolda para Exterior</strong>
+                                    <span>Protección contra sol y lluvia</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Resumen del Paquete Calculado -->
+                    <div class="calc-resumen">
+                        <div class="calc-resumen-header">
+                            <h4><i class="fa-solid fa-list-check"></i> Paquete Sugerido</h4>
+                            <span class="badge-recomendado">Recomendado</span>
+                        </div>
+                        
+                        <div class="calc-items-list" id="calc-items-list">
+                            <!-- Inyectado por JS -->
+                        </div>
+
+                        <div class="calc-total-card">
+                            <div class="calc-total-row">
+                                <span>Subtotal Estimado:</span>
+                                <strong id="calc-total-precio">$0.00</strong>
+                            </div>
+                            <p class="calc-nota-flete">* El flete se calculará según la zona de entrega.</p>
+                        </div>
+
+                        <div class="calc-actions-box">
+                            <button type="button" id="btn-calc-add-cart" class="btn btn-submit btn-calc-cart">
+                                <i class="fa-solid fa-cart-plus"></i> Añadir Paquete a la Cotización
+                            </button>
+                            <button type="button" id="btn-calc-wsp" class="btn-wsp-directo btn-calc-wsp-direct">
+                                <i class="fa-brands fa-whatsapp"></i> Pedir este paquete por WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="container reveal">
+            <div class="titulo-centro">
+                <h3>Nuestros Eventos</h3>
+            </div>
+
+            <div class="scroller" data-direction="left" data-speed="slow">
+                <div class="scroller-inner">
+                    <div class="galeria-item">
+                        <img src="img/galeria-1.jpg"
+                            alt="Montaje de sillas y mesas para evento al aire libre en La Chorrera"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-2.jpg"
+                            alt="Decoración de mesas con manteles dorados para fiesta en Panamá Oeste"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-3.jpg" alt="Alquiler de mobiliario para celebración familiar en Arraiján"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-4.jpg" alt="Disposición de sillas plegables en salón de eventos"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-5.jpg" alt="Patio interior con sillas y mesas apiladas, listo para evento"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-6.jpg" alt="Preparación de mesas rectangulares para banquete"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-7.jpg" alt="Sillas plegables apiladas en almacén, listas para alquiler"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-8.jpg" alt="Evento corporativo con mobiliario de alquiler"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-9.jpg" alt="Celebración de cumpleaños con mesas y sillas de MR Alquileres"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-10.jpg" alt="Mobiliario para boda en jardín, sillas y mesas elegantes"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-11.jpg" alt="Mobiliario para boda en jardín, sillas y mesas elegantes"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-12.jpg" alt="Mobiliario para boda en jardín, sillas y mesas elegantes"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="img/galeria-13.jpg" alt="Mobiliario para boda en jardín, sillas y mesas elegantes"
+                            class="galeria-img" loading="lazy" width="250" height="300">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIOS -->
+        <section id="testimonios" class="container reveal">
+            <div class="titulo-centro">
+                <h3>Lo que dicen nuestros clientes</h3>
+            </div>
+            <div class="grid-testimonios">
+                <div class="tarjeta tarjeta-testimonio">
+                    <div class="estrellas">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i>
+                    </div>
+                    <p>"Excelente servicio, las sillas y mesas llegaron a tiempo y en perfectas condiciones. ¡Súper
+                        recomendados!"</p>
+                    <h5>- María Pérez</h5>
+                </div>
+                <div class="tarjeta tarjeta-testimonio">
+                    <div class="estrellas">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i>
+                    </div>
+                    <p>"Las toldas están hermosas y le dieron un toque muy elegante a nuestra boda. La atención fue de
+                        primera."</p>
+                    <h5>- Juan Carlos G.</h5>
+                </div>
+                <div class="tarjeta tarjeta-testimonio">
+                    <div class="estrellas">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <p>"Muy formales y puntuales. Los manteles estaban impecables. Sin duda los volveré a contratar para
+                        mi próximo evento."</p>
+                    <h5>- Ana Martínez</h5>
+                </div>
+            </div>
+        </section>
+
+        <!-- PREGUNTAS FRECUENTES (FAQ) -->
+        <section id="faq" class="container reveal">
+            <div class="titulo-centro">
+                <h3>Preguntas Frecuentes</h3>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ¿Cobran por el servicio de transporte? <i class="fa-solid fa-chevron-down transition-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>El costo del transporte varía dependiendo de la ubicación del evento (La Chorrera, Arraiján,
+                            etc.). Al momento de cotizar por WhatsApp y brindarnos tu dirección exacta, te indicaremos
+                            el costo del acarreo.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ¿Se debe pagar algún depósito de garantía? <i
+                            class="fa-solid fa-chevron-down transition-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No exigimos un depósito de garantía por adelantado. Sin embargo, el cliente asume la
+                            responsabilidad total del cuidado del mobiliario durante el evento. En caso de daños,
+                            averías o pérdida, el cliente deberá cubrir el costo de reparación o reposición
+                            correspondiente.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ¿Con cuánto tiempo de anticipación debo reservar? <i
+                            class="fa-solid fa-chevron-down transition-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Recomendamos realizar tu reserva con al menos 1 o 2 semanas de anticipación, especialmente
+                            para fines de semana, quincenas o temporadas festivas, para asegurar la disponibilidad de
+                            todo el mobiliario que necesitas.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ¿Cuáles son los métodos de pago? <i class="fa-solid fa-chevron-down transition-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Aceptamos pagos a través de Yappy, transferencias bancarias (ACH) y efectivo al momento de la
+                            entrega.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMULARIO DE CONTACTO -->
+        <section id="cotizar" class="container reveal">
+            <div class="titulo-centro">
+                <h3>Solicitar Cotización</h3>
+            </div>
+            <div class="form-container tarjeta">
+                <form id="contact-form" action="https://formsubmit.co/mralquileres29@gmail.com" method="POST">
+                    <!-- Configuraciones de FormSubmit -->
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="Nuevo pedido de cotización desde la Web">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://mralquileres-web.web.app/#cotizar">
+
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="telefono">Teléfono / WhatsApp</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="Ej: 6000-0000" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="fecha">Fecha del Evento</label>
+                            <input type="date" id="fecha" name="fecha" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="mensaje">Detalles del Mobiliario</label>
+                        <textarea id="mensaje" name="mensaje" rows="4"
+                            placeholder="¿Cuántas sillas, mesas o toldas necesitas?" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-submit">Enviar Solicitud <i
+                            class="fa-regular fa-paper-plane"></i></button>
+                    <p id="form-status" class="form-status"></p>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contacto">
+        <h3>Contáctanos</h3>
+        <p>¿Listo para reservar?</p>
+        <a href="https://wa.me/50761130277?text=Hola%20MR%20Alquileres,%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n."
+            target="_blank" class="btn btn-footer-cta">¡Cotiza Ahora!</a>
+
+        <div class="redes-sociales">
+            <a href="https://wa.me/50761130277?text=Hola%20MR%20Alquileres,%20me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios."
+                target="_blank" class="icono-social wsp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+
+            <a href="https://www.instagram.com/mralquileres?igsh=MXBzdjJobTY1YjB2" target="_blank"
+                class="icono-social insta">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="mailto:mralquileres29@gmail.com" class="icono-social mail">
+                <i class="fa-regular fa-envelope"></i>
+            </a>
+        </div>
+
+        <p class="copyright">&copy; 2026 MR ALQUILERES | Servicio en Panamá, Panamá Oeste</p>
+    </footer>
+    <a href="https://wa.me/50761130277?text=Hola%20MR%20Alquileres,%20deseo%20consultar%20disponibilidad%20para%20un%20evento."
+        class="wsp-flotante" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- TEXTURA DE RUIDO Y LUCES -->
+    <div class="noise-overlay"></div>
+
+    <!-- CONTENEDOR DE NOTIFICACIONES TOAST -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- MODAL LIGHTBOX PARA LA GALERÍA -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <span class="lightbox-prev" id="lightbox-prev"><i class="fa-solid fa-chevron-left"></i></span>
+        <img class="lightbox-content" id="lightbox-img">
+        <span class="lightbox-next" id="lightbox-next"><i class="fa-solid fa-chevron-right"></i></span>
+    </div>
+
+    <!-- CARRITO FLOTANTE Y MODAL -->
+    <button id="btn-carrito-flotante" class="carrito-flotante">
+        <i class="fa-solid fa-shopping-cart"></i>
+        <span class="carrito-badge" id="carrito-count">0</span>
+    </button>
+
+    <div id="modal-carrito" class="modal">
+        <div class="modal-content tarjeta">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h3>Tu Cotización</h3>
+            <div id="carrito-items" class="carrito-items-container">
+                <!-- Los items se inyectarán aquí por JS -->
+                <div class="carrito-vacio">
+                    <p style="margin-bottom: 15px;">No has añadido productos aún.</p>
+                    <a href="#catalogo" class="btn" style="padding: 10px 20px; font-size: 0.9rem;" onclick="document.getElementById('modal-carrito').classList.remove('show');">Ir al catálogo</a>
+                </div>
+            </div>
+            <div class="carrito-footer">
+                <div class="carrito-total">
+                    <span>Subtotal (Solo mobiliario):</span>
+                    <strong id="carrito-total-precio">$0.00</strong>
+                </div>
+                <p class="nota-transporte">* El costo de transporte se calculará al contactarnos.</p>
+                <button id="btn-enviar-wsp" class="btn btn-submit btn-enviar-cotizacion" disabled>
+                    Enviar a WhatsApp <i class="fa-brands fa-whatsapp"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

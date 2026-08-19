@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Flyer Limpio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --navy: #0B1A3D;
+            --gold: #D4AF37;
+            --bg: #F9F8F6;
+        }
+
+        body { 
+            font-family: 'Montserrat', sans-serif;
+            width: 1080px; height: 1350px;
+            background-color: var(--bg);
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 100 L100 0" stroke="%23D4AF37" stroke-width="0.5" opacity="0.3"/></svg>');
+            position: relative;
+            display: flex; flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        .header {
+            text-align: center;
+            padding: 40px 60px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+
+        .logo-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--navy);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid var(--gold);
+            overflow: hidden;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .title-box {
+            text-align: right;
+            max-width: 700px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--navy);
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 span {
+            font-style: italic;
+            color: var(--gold);
+            text-transform: capitalize;
+            font-size: 4rem;
+        }
+
+        p.desc {
+            font-size: 1.4rem;
+            color: #555;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        /* Clean Photo Grid */
+        .grid-container {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            padding: 30px 40px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            border: 2px solid #eaeaea;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-grow: 1;
+        }
+
+        .photo-label {
+            background: var(--navy);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-top: 3px solid var(--gold);
+        }
+
+        /* Grid Placements */
+        .item-main {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+        }
+        .item-main .photo-label {
+            background: var(--gold);
+            color: var(--navy);
+            font-size: 1.5rem;
+            border-top: none;
+        }
+
+        .item-2 { grid-column: 2 / 3; grid-row: 1 / 2; }
+        .item-3 { grid-column: 3 / 4; grid-row: 1 / 2; }
+        .item-4 { grid-column: 2 / 3; grid-row: 2 / 3; }
+        .item-5 { grid-column: 3 / 4; grid-row: 2 / 3; }
+
+        /* Services Bar */
+        .services-bar {
+            background: var(--navy);
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-top: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+            z-index: 10;
+        }
+        .services-bar i { color: var(--gold); margin-right: 8px; }
+
+        /* Footer */
+        .footer {
+            background: white;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .contact-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .contact-group i {
+            background: #25D366;
+            color: white;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3.5rem;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .phones {
+            display: flex;
+            flex-direction: column;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--navy);
+        }
+        .phones span:last-child { color: #555; font-size: 1.8rem; font-weight: 700; }
+
+        .social {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #f0f0f0;
+            color: var(--navy);
+            padding: 15px 30px;
+            border-radius: 40px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .social i {
+            color: #E1306C;
+            font-size: 2.2rem;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <div class="logo-container">
+            <img src="img/logo-nuevo.jpg" alt="MR Alquileres" onerror="this.src='img/logo.jpg'">
+        </div>
+        <div class="title-box">
+            <h1>ALQUILER PARA<br>EVENTOS <span>Especiales</span></h1>
+            <p class="desc">¡Haz de tu evento un momento inolvidable! Calidad, elegancia y puntualidad a tu alcance.</p>
+        </div>
+    </div>
+
+    <div class="services-bar">
+        <div><i class="fa-solid fa-check"></i> Sillas Plegables y Plásticas</div>
+        <div><i class="fa-solid fa-check"></i> Mesas de todos los tamaños</div>
+        <div><i class="fa-solid fa-check"></i> Toldas y Mantelería</div>
+    </div>
+
+    <div class="grid-container">
+        <!-- Tolda (Imagen Principal más grande) -->
+        <div class="photo-card item-main">
+            <img src="img/tolda-3x6.jpg" alt="Tolda 3x6" onerror="this.src='img/tolda-6x6metros.jpg'">
+            <div class="photo-label">Toldas 3x6 y 6x6</div>
+        </div>
+        
+        <!-- Sillas Plegables -->
+        <div class="photo-card item-2">
+            <img src="img/sillas-plegables.jpg" alt="Sillas Plegables">
+            <div class="photo-label">Sillas Plegables</div>
+        </div>
+
+        <!-- Sillas Plásticas -->
+        <div class="photo-card item-3">
+            <img src="img/sillas-plasticas.jpg" alt="Sillas Plásticas">
+            <div class="photo-label">Sillas Plásticas</div>
+        </div>
+
+        <!-- Mesas Rectangulares -->
+        <div class="photo-card item-4">
+            <img src="img/mesas-rectangular.jpg" alt="Mesas">
+            <div class="photo-label">Mesas Rectangulares</div>
+        </div>
+
+        <!-- Mesas Cuadradas -->
+        <div class="photo-card item-5">
+            <img src="img/mesas-cuadradas.jpg" alt="Mesas Cuadradas">
+            <div class="photo-label">Mesas Cuadradas</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="contact-group">
+            <i class="fa-brands fa-whatsapp"></i>
+            <div class="phones">
+                <span>6189-1141</span>
+                <span>6113-0277</span>
+            </div>
+        </div>
+
+        <div class="social">
+            <i class="fa-brands fa-instagram"></i>
+            @mralquileres
+        </div>
+    </div>
+
+</body>
+</html>

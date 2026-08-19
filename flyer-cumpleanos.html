@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flyer Cumpleaños - MR Alquileres</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Contenedor del Flyer - Formato Vertical */
+        .flyer-container {
+            width: 100%;
+            max-width: 500px;
+            /* Fondo muy vibrante y festivo */
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.4);
+            position: relative;
+            border: 5px solid #fff;
+        }
+
+        /* Confeti en el fondo */
+        .flyer-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, #fff 3px, transparent 4px),
+                radial-gradient(circle at 70% 10%, #6BCB77 4px, transparent 5px),
+                radial-gradient(circle at 80% 60%, #4D96FF 4px, transparent 5px),
+                radial-gradient(circle at 10% 80%, #fff 3px, transparent 4px),
+                radial-gradient(circle at 50% 90%, #FF6B6B 5px, transparent 6px);
+            background-size: 150px 150px;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header con Logo */
+        .header {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 25px 20px 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+            border-bottom-left-radius: 50% 20px;
+            border-bottom-right-radius: 50% 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #FFD93D;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.2rem;
+            color: #FF6B6B;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #4D96FF;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        /* Banner de Cumpleaños */
+        .birthday-banner {
+            background: #4D96FF;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.6rem;
+            font-family: 'Fredoka One', cursive;
+            text-transform: uppercase;
+            box-shadow: 0 8px 15px rgba(77, 150, 255, 0.4);
+            margin: -20px 20px 20px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+            transform: rotate(-2deg);
+        }
+
+        /* Grid de Imágenes */
+        .photo-gallery {
+            padding: 0 20px 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .photo-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            aspect-ratio: 1;
+            border: 4px solid #fff;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 107, 107, 0.95);
+            color: #fff;
+            padding: 8px 5px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+        
+        .photo-item.featured-img .photo-label {
+            background: rgba(77, 150, 255, 0.95);
+            font-size: 1rem;
+        }
+
+        .featured-img {
+            grid-column: span 2;
+            aspect-ratio: 16/9;
+        }
+
+        /* Lista de Servicios */
+        .services-container {
+            background: rgba(255, 255, 255, 0.9);
+            margin: 0 20px 20px;
+            padding: 15px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .services-container h3 {
+            color: #FF6B6B;
+            margin-bottom: 12px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3rem;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tag {
+            background: #FFD93D;
+            color: #1a1a1a;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 900;
+            box-shadow: 0 4px 6px rgba(255, 217, 61, 0.4);
+        }
+
+        /* Footer de Contacto */
+        .footer {
+            background-color: #ffffff;
+            padding: 25px 20px;
+            text-align: center;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #1a1a1a;
+        }
+
+        .contact-item.wsp i {
+            color: #25D366; 
+            font-size: 1.8rem;
+        }
+        
+        .contact-item.ig i {
+            color: #E1306C;
+            font-size: 1.8rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #6BCB77;
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 35px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.3rem;
+            box-shadow: 0 8px 15px rgba(107, 203, 119, 0.4);
+            text-transform: uppercase;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .locations {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 700;
+        }
+        
+        /* Instrucciones */
+        .save-instructions {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #555;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="save-instructions">
+        <i class="fa-solid fa-camera"></i> Tómale captura de pantalla (screenshot) a este flyer.
+    </div>
+
+    <div class="flyer-container" id="flyer">
+        <!-- Header -->
+        <div class="header">
+            <img src="img/logo.jpg" alt="MR Alquileres Logo" class="logo">
+            <div class="title">MR ALQUILERES</div>
+            <div class="subtitle">¡Diversión y Comodidad!</div>
+        </div>
+
+        <!-- Banner -->
+        <div class="birthday-banner">
+            🎉 ¡Todo para tu Fiesta! 🎈
+        </div>
+
+        <!-- Galería de Fotos -->
+        <div class="photo-gallery">
+            <!-- Foto Destacada -->
+            <div class="photo-item featured-img">
+                <img src="img/galeria-9.jpg" alt="Fiesta de Cumpleaños">
+                <div class="photo-label">¡Nosotros te armamos la fiesta!</div>
+            </div>
+            
+            <!-- Sillas -->
+            <div class="photo-item">
+                <img src="img/sillas-plegables.jpg" alt="Sillas Plegables">
+                <div class="photo-label">Sillas Plegables</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/sillas-plasticas.jpg" alt="Sillas Plásticas">
+                <div class="photo-label">Sillas Plásticas</div>
+            </div>
+
+            <!-- Mesas -->
+            <div class="photo-item">
+                <img src="img/mesas-rectangular.jpg" alt="Mesas Rectangulares">
+                <div class="photo-label">Mesas Rectang.</div>
+            </div>
+            <div class="photo-item">
+                <img src="img/mesas-cuadradas.jpg" alt="Mesas Cuadradas">
+                <div class="photo-label">Mesas Cuadradas</div>
+            </div>
+        </div>
+
+        <!-- Etiquetas de Servicios -->
+        <div class="services-container">
+            <h3>¡Lo que necesitas lo tenemos!</h3>
+            <div class="service-tags">
+                <span class="tag">🪑 Sillas y Mesas</span>
+                <span class="tag">✨ Mantelería</span>
+                <span class="tag">🚚 Llevamos todo a tu casa</span>
+            </div>
+        </div>
+
+        <!-- Footer / Contacto -->
+        <div class="footer">
+            <div class="contact-info">
+                <div class="contact-item wsp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>6113-0277</span>
+                </div>
+                <div class="contact-item ig">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>@mralquileres</span>
+                </div>
+            </div>
+            
+            <a href="https://wa.me/50761130277?text=Hola%20MR%20Alquileres,%20vi%20su%20flyer%20de%20cumplea%C3%B1os%20y%20deseo%20cotizar." class="cta-button" target="_blank">
+                ¡COTIZA AHORA! 🎁
+            </a>
+
+            <div class="locations">
+                📍 Cubrimos: La Chorrera y Arraiján
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
