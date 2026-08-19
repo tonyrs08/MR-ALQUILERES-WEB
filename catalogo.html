@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Catálogo Completo | MR Alquileres Panamá</title>
+    <meta name="description"
+        content="Explora todo nuestro inventario de alquiler: sillas plásticas y plegables, mesas, toldas, manteles, chafing dishes y calentadores en Panamá Oeste.">
+
+    <!-- Favicon / Ícono de la pestaña -->
+    <link rel="icon" type="image/jpeg" href="img/logo.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="img/logo.jpg">
+    <link rel="apple-touch-icon" href="img/logo.jpg">
+
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Catálogo Completo | MR Alquileres">
+    <meta property="og:description"
+        content="Alquiler de sillas, mesas, toldas, mantelería y menaje en La Chorrera, Arraiján y Panamá Oeste.">
+    <meta property="og:image" content="https://mralquileres-web.web.app/img/galeria-11.jpg">
+    <meta property="og:url" content="https://mralquileres-web.web.app/catalogo.html">
+
+    <link rel="stylesheet" href="style.css?v=27">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Script para catálogo y carrito -->
+    <script src="script.js?v=27" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="marca-logo">
+                <img src="img/logo.jpg" alt="MR Alquileres" class="logo-img" onerror="this.style.display='none'">
+                <span class="nombre-empresa">MR ALQUILERES</span>
+            </a>
+
+            <nav>
+                <a href="index.html#inicio">Inicio</a>
+                <a href="catalogo.html" class="active">Catálogo</a>
+                <a href="index.html#calculadora">Calculadora</a>
+                <a href="index.html#galeria">Galería</a>
+                <a href="index.html#faq">Preguntas</a>
+                <a href="index.html#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- ENCABEZADO DEL CATÁLOGO -->
+        <section class="catalogo-hero">
+            <div class="container">
+                <span style="color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; display: block; margin-bottom: 8px;">
+                    <i class="fa-solid fa-boxes-stacked"></i> Inventario Completo
+                </span>
+                <h1>Catálogo de Mobiliario y Equipos</h1>
+                <p>Encuentra todo lo que necesitas para tu evento: sillas, mesas, manteles, toldas y bufeteras. Añade lo que desees a tu cotización o consúltanos directo por WhatsApp.</p>
+
+                <!-- BARRA DE BÚSQUEDA -->
+                <div class="buscador-container">
+                    <div class="buscador-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="input-buscar-catalogo" class="buscador-input" placeholder="Buscar por nombre o tipo (ej: plegable, rectangular, chafing)..." aria-label="Buscar productos">
+                        <button type="button" id="btn-clear-search" class="buscador-clear" aria-label="Limpiar búsqueda">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FILTROS POR CATEGORÍA -->
+                <div class="filtros-catalogo">
+                    <button class="btn-filtro active" data-filter="todos">Todos</button>
+                    <button class="btn-filtro" data-filter="sillas"><i class="fa-solid fa-chair"></i> Sillas</button>
+                    <button class="btn-filtro" data-filter="mesas"><i class="fa-solid fa-table"></i> Mesas</button>
+                    <button class="btn-filtro" data-filter="toldas"><i class="fa-solid fa-campground"></i> Toldas</button>
+                    <button class="btn-filtro" data-filter="catering"><i class="fa-solid fa-utensils"></i> Catering & Buffet</button>
+                    <button class="btn-filtro" data-filter="manteles"><i class="fa-solid fa-rug"></i> Mantelería</button>
+                </div>
+
+                <p id="contador-productos" class="catalogo-contador-info"></p>
+            </div>
+        </section>
+
+        <!-- GRID DE PRODUCTOS -->
+        <section class="container" style="margin-bottom: 60px;">
+            <div class="grid-productos" id="lista-productos" data-mode="all">
+                <!-- Los productos se cargarán dinámicamente vía Javascript -->
+            </div>
+
+            <!-- BANNER DE ASESORÍA PERSONALIZADA -->
+            <div class="catalogo-wsp-banner reveal">
+                <h4>¿Buscas algo especial o necesitas un paquete para muchos invitados?</h4>
+                <p>Armamos presupuestos a tu medida y te asesoramos con la distribución de tu espacio.</p>
+                <a href="https://wa.me/50761130277?text=Hola%20MR%20Alquileres,%20estoy%20viendo%20el%20cat%C3%A1logo%20y%20deseo%20asesor%C3%ADa%20personalizada%20para%20mi%20evento." 
+                   target="_blank" class="btn" style="padding: 12px 28px; font-size: 0.95rem;">
+                    <i class="fa-brands fa-whatsapp"></i> Hablar con un Asesor
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto">
+        <h3>MR Alquileres</h3>
+        <p>Servicio de alquiler en Panamá Oeste y Ciudad de Panamá</p>
+        <div class="redes-sociales">
+            <a href="https://wa.me/50761130277?text=Hola%20MR%20Alquileres,%20deseo%20solicitar%20informaci%C3%B3n." target="_blank" class="icono-social wsp" aria-label="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <a href="https://www.instagram.com/mralquileres?igsh=MXBzdjJobTY1YjB2" target="_blank" class="icono-social insta" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="mailto:mralquileres29@gmail.com" class="icono-social mail" aria-label="Correo">
+                <i class="fa-regular fa-envelope"></i>
+            </a>
+        </div>
+        <p class="copyright">&copy; 2026 MR ALQUILERES | La Chorrera, Panamá Oeste</p>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/50761130277?text=Hola%20MR%20Alquileres,%20estoy%20viendo%20el%20cat%C3%A1logo%20y%20deseo%20consultar%20disponibilidad."
+        class="wsp-flotante" target="_blank" aria-label="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- TEXTURA DE RUIDO Y LUCES -->
+    <div class="noise-overlay"></div>
+
+    <!-- CONTENEDOR DE NOTIFICACIONES TOAST -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- CARRITO FLOTANTE Y MODAL -->
+    <button id="btn-carrito-flotante" class="carrito-flotante" aria-label="Ver carrito">
+        <i class="fa-solid fa-shopping-cart"></i>
+        <span class="carrito-badge" id="carrito-count">0</span>
+    </button>
+
+    <div id="modal-carrito" class="modal">
+        <div class="modal-content tarjeta">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h3>Tu Cotización</h3>
+            <div id="carrito-items" class="carrito-items-container">
+                <!-- Los items se inyectarán aquí por JS -->
+                <div class="carrito-vacio">
+                    <p style="margin-bottom: 15px;">No has añadido productos aún.</p>
+                </div>
+            </div>
+            <div class="carrito-footer">
+                <div class="carrito-total">
+                    <span>Subtotal (Solo mobiliario):</span>
+                    <strong id="carrito-total-precio">$0.00</strong>
+                </div>
+                <p class="nota-transporte">* El costo de transporte se calculará al contactarnos.</p>
+                <button id="btn-enviar-wsp" class="btn btn-submit btn-enviar-cotizacion" disabled>
+                    Enviar a WhatsApp <i class="fa-brands fa-whatsapp"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

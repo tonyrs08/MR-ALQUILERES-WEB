@@ -9,27 +9,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ScrollSpy: Resaltar menú según la sección
-    const sections = document.querySelectorAll('section[id]');
+    // ScrollSpy: Resaltar menú según la sección activa (Solo en páginas con secciones internas)
+    const sections = document.querySelectorAll('main > section[id]');
     const navLinks = document.querySelectorAll('nav a');
 
-    window.addEventListener('scroll', () => {
-        let current = "";
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.scrollY >= (sectionTop - 200)) {
-                current = section.getAttribute('id');
-            }
-        });
+    if (sections.length > 0) {
+        window.addEventListener('scroll', () => {
+            let current = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= (sectionTop - 220)) {
+                    current = section.getAttribute('id');
+                }
+            });
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active');
+            if (current) {
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href') || '';
+                    if (href.startsWith('#') || href.includes('#')) {
+                        link.classList.remove('active');
+                        if (href === `#${current}` || href.endsWith(`#${current}`)) {
+                            link.classList.add('active');
+                        }
+                    }
+                });
             }
         });
-    });
+    }
 
     // Intersection Observer para las animaciones reveal
     const observerOptions = {
@@ -83,82 +89,84 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DE FILTROS ---
-    const btnFiltros = document.querySelectorAll('.btn-filtro');
-
-    btnFiltros.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remover clase active de todos los botones
-            btnFiltros.forEach(b => b.classList.remove('active'));
-            // Añadir active al botón clickeado
-            btn.classList.add('active');
-
-            const filterValue = btn.getAttribute('data-filter');
-            const productos = document.querySelectorAll('.producto-item');
-
-            productos.forEach(producto => {
-                if (filterValue === 'todos' || producto.getAttribute('data-category') === filterValue) {
-                    producto.classList.remove('hidden');
-                    // Reiniciar animación reveal si es necesario
-                    setTimeout(() => {
-                        producto.classList.add('active');
-                    }, 50);
-                } else {
-                    producto.classList.add('hidden');
-                    producto.classList.remove('active');
-                }
-            });
-        });
-    });
-
     // --- DATOS DEL CATÁLOGO DINÁMICO ---
     const catalogData = [
         {
             id: 'p1', category: 'sillas', name: 'Sillas Plásticas', 
-            desc: 'Económicas y resistentes.', price: 0.50, img: 'img/sillas-plasticas.jpg', wspMsg: 'Hola, me interesan las Sillas Plásticas'
+            desc: 'Económicas y resistentes para cualquier tipo de evento.', price: 0.50, img: 'img/sillas-plasticas.jpg', wspMsg: 'Hola, me interesan las Sillas Plásticas', featured: true
         },
         {
             id: 'p2', category: 'sillas', name: 'Sillas Plegables', 
-            desc: 'Prácticas y cómodas.', price: 1.00, img: 'img/sillas-plegables.jpg', wspMsg: 'Hola, me interesan las Sillas Plegables'
+            desc: 'Prácticas, cómodas y fáciles de acomodar.', price: 1.00, img: 'img/sillas-plegables.jpg', wspMsg: 'Hola, me interesan las Sillas Plegables', featured: true
         },
         {
             id: 'p3', category: 'mesas', name: 'Mesas Cuadradas', 
-            desc: 'Perfectas para 4 personas.', price: 3.00, img: 'img/mesas-cuadradas.jpg', wspMsg: 'Hola, me interesan las Mesas Cuadradas'
+            desc: 'Perfectas para 4 personas y reuniones familiares.', price: 3.00, img: 'img/mesas-cuadradas.jpg', wspMsg: 'Hola, me interesan las Mesas Cuadradas', featured: false
         },
         {
             id: 'p4', category: 'mesas', name: 'Mesas Rectangulares 6"', 
-            desc: 'Amplias y elegantes para banquetes.', price: 6.00, img: 'img/mesas-rectangular.jpg', wspMsg: 'Hola, me interesan las Mesas Rectangulares'
+            desc: 'Amplias y elegantes para banquetes de 6 personas.', price: 6.00, img: 'img/mesas-rectangular.jpg', wspMsg: 'Hola, me interesan las Mesas Rectangulares', featured: true
         },
         {
-            id: 'p5', category: 'otros', name: 'Manteles de Colores', 
-            desc: 'Variedad de colores para mesas cuadradas.', price: 1.50, img: 'img/manteles.jpg', wspMsg: 'Hola, me interesan los Manteles'
+            id: 'p5', category: 'manteles', name: 'Manteles de Colores', 
+            desc: 'Variedad de colores para vestir tus mesas cuadradas.', price: 1.50, img: 'img/manteles.jpg', wspMsg: 'Hola, me interesan los Manteles', featured: false
         },
         {
             id: 'p6', category: 'toldas', name: 'Tolda 3x6 metros', 
-            desc: 'Estructura resistente, ideal para fiestas familiares y exteriores.', price: 40.00, img: 'img/tolda-3x6.jpg', wspMsg: 'Hola, me interesa la Tolda 3x6 metros'
+            desc: 'Estructura resistente para fiestas y exteriores.', price: 40.00, img: 'img/tolda-3x6.jpg', wspMsg: 'Hola, me interesa la Tolda 3x6 metros', featured: true
         },
         {
             id: 'p7', category: 'toldas', name: 'Tolda Premium 6x6 metros', 
-            desc: 'Estilo pico elevado que brinda mayor frescura y elegancia.', price: 200.00, img: 'img/tolda-6x6metros.jpg', wspMsg: 'Hola, me interesa la Tolda Premium'
+            desc: 'Pico elevado que brinda mayor frescura y elegancia.', price: 200.00, img: 'img/tolda-6x6metros.jpg', wspMsg: 'Hola, me interesa la Tolda Premium', featured: false
         },
         {
-            id: 'p8', category: 'otros', name: 'Chafing Dish Rectangular (Sin Calentador)', 
-            desc: 'Bufetera de acero inoxidable para mantener tus alimentos calientes durante el evento.', price: 12.00, img: 'img/chafing dish.png', wspMsg: 'Hola, me interesa el Chafing Dish Rectangular'
+            id: 'p8', category: 'catering', name: 'Chafing Dish Rectangular (Sin Calentador)', 
+            desc: 'Bufetera de acero inoxidable para mantener la comida caliente.', price: 12.00, img: 'img/chafing dish.png', wspMsg: 'Hola, me interesa el Chafing Dish Rectangular', featured: false
         },
         {
-            id: 'p9', category: 'otros', name: 'Calentador (Sterno)', 
-            desc: 'Lata de gel combustible para mantener calientes los alimentos en Chafing Dishes.', price: 2.50, img: 'img/calentador sterno.png', wspMsg: 'Hola, me interesa el Calentador Sterno'
+            id: 'p9', category: 'catering', name: 'Calentador (Sterno)', 
+            desc: 'Lata de gel combustible para bufeteras y chafing dishes.', price: 2.50, img: 'img/calentador sterno.png', wspMsg: 'Hola, me interesa el Calentador Sterno', featured: false
         }
     ];
 
     const listaProductos = document.getElementById('lista-productos');
+    const inputBuscar = document.getElementById('input-buscar-catalogo');
+    const btnClearSearch = document.getElementById('btn-clear-search');
+    const contadorProductos = document.getElementById('contador-productos');
+    const btnFiltros = document.querySelectorAll('.btn-filtro');
+
+    // Carrito con persistencia en localStorage
     let carrito = [];
+    try {
+        const storedCart = localStorage.getItem('mr_carrito');
+        if (storedCart) {
+            carrito = JSON.parse(storedCart);
+        }
+    } catch (e) {
+        carrito = [];
+    }
+
     const carritoCount = document.getElementById('carrito-count');
 
-    function renderCatalog() {
+    function renderCatalog(customList) {
         if (!listaProductos) return;
         listaProductos.innerHTML = '';
-        catalogData.forEach((prod, index) => {
+
+        const isFeaturedMode = listaProductos.getAttribute('data-mode') === 'featured';
+        let itemsToRender = customList || (isFeaturedMode ? catalogData.filter(p => p.featured) : catalogData);
+
+        if (itemsToRender.length === 0) {
+            listaProductos.innerHTML = `
+                <div class="catalogo-sin-resultados">
+                    <i class="fa-solid fa-box-open"></i>
+                    <h4>No encontramos productos con ese término</h4>
+                    <p>Intenta con otra palabra clave como "silla", "mesa", "tolda" o "chafing".</p>
+                </div>
+            `;
+            return;
+        }
+
+        itemsToRender.forEach((prod, index) => {
             const delay = (index % 6 + 1) * 0.1;
 
             const card = document.createElement('div');
@@ -196,8 +204,55 @@ document.addEventListener('DOMContentLoaded', () => {
         newElements.forEach(el => observer.observe(el));
     }
 
+    function filtrarCatalogo() {
+        if (!listaProductos || listaProductos.getAttribute('data-mode') === 'featured') return;
+
+        const currentActiveBtn = document.querySelector('.btn-filtro.active');
+        const activeCategory = currentActiveBtn ? currentActiveBtn.getAttribute('data-filter') : 'todos';
+        const searchTerm = inputBuscar ? inputBuscar.value.trim().toLowerCase() : '';
+
+        if (btnClearSearch) {
+            btnClearSearch.style.display = searchTerm ? 'block' : 'none';
+        }
+
+        const filtered = catalogData.filter(prod => {
+            const matchesCategory = activeCategory === 'todos' || prod.category === activeCategory;
+            const matchesSearch = !searchTerm || 
+                prod.name.toLowerCase().includes(searchTerm) || 
+                prod.desc.toLowerCase().includes(searchTerm) ||
+                prod.category.toLowerCase().includes(searchTerm);
+            return matchesCategory && matchesSearch;
+        });
+
+        renderCatalog(filtered);
+
+        if (contadorProductos) {
+            contadorProductos.textContent = `Mostrando ${filtered.length} de ${catalogData.length} productos`;
+        }
+    }
+
+    if (inputBuscar) {
+        inputBuscar.addEventListener('input', filtrarCatalogo);
+    }
+    if (btnClearSearch) {
+        btnClearSearch.addEventListener('click', () => {
+            inputBuscar.value = '';
+            filtrarCatalogo();
+            inputBuscar.focus();
+        });
+    }
+
+    btnFiltros.forEach(btn => {
+        btn.addEventListener('click', () => {
+            btnFiltros.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filtrarCatalogo();
+        });
+    });
+
     function showToast(message) {
         const container = document.getElementById('toast-container');
+        if (!container) return;
         const toast = document.createElement('div');
         toast.className = 'toast';
         toast.innerHTML = `<i class="fa-solid fa-check-circle"></i> <span>${message}</span>`;
@@ -267,6 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderCatalog();
+    actualizarCarritoUI();
 
     // Modal UI
     const modalCarrito = document.getElementById('modal-carrito');
@@ -276,13 +332,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const carritoTotalPrecio = document.getElementById('carrito-total-precio');
     const btnEnviarWsp = document.getElementById('btn-enviar-wsp');
 
-    btnCarritoFlotante.addEventListener('click', () => {
-        modalCarrito.classList.add('show');
-    });
+    if (btnCarritoFlotante && modalCarrito) {
+        btnCarritoFlotante.addEventListener('click', () => {
+            modalCarrito.classList.add('show');
+        });
+    }
 
-    closeModal.addEventListener('click', () => {
-        modalCarrito.classList.remove('show');
-    });
+    if (closeModal && modalCarrito) {
+        closeModal.addEventListener('click', () => {
+            modalCarrito.classList.remove('show');
+        });
+    }
 
     // Cerrar al hacer clic fuera del contenido
     window.addEventListener('click', (e) => {
@@ -292,12 +352,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function actualizarCarritoUI() {
+        try {
+            localStorage.setItem('mr_carrito', JSON.stringify(carrito));
+        } catch (e) {}
+
         // Actualizar contador badge
         const totalItems = carrito.reduce((sum, item) => sum + item.quantity, 0);
-        carritoCount.textContent = totalItems;
+        if (carritoCount) {
+            carritoCount.textContent = totalItems;
+        }
 
-        // Renderizar items
-        carritoItemsContainer.innerHTML = '';
+        if (!carritoItemsContainer || !carritoTotalPrecio) return;
 
         if (carrito.length === 0) {
             carritoItemsContainer.innerHTML = '<p class="carrito-vacio">No has añadido productos aún.</p>';

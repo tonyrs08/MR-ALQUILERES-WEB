@@ -91,27 +91,26 @@ body::after {
 /* 2. ENCABEZADO DE LUJO (Glassmorphism) */
 header {
     background-color: var(--bg-nav);
-    padding: 12px 0;
+    padding: 10px 0;
     border-bottom: 2px solid rgba(240, 165, 0, 0.3);
     position: sticky;
     top: 0;
     z-index: 1000;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header-scrolled {
-    padding: 8px 0;
-    background-color: rgba(2, 8, 23, 0.85);
+    background-color: rgba(2, 8, 23, 0.92);
     backdrop-filter: blur(15px); /* Efecto cristal puro */
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 2px solid var(--primary);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
 }
 
 .header-content {
     max-width: 100%;
     width: 100%;
-    padding: 0 40px;
+    padding: 0 35px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -122,46 +121,44 @@ header {
     text-decoration: none;
     display: flex;
     align-items: center; 
-    gap: 16px; 
+    gap: 14px; 
     transition: transform 0.3s ease;
     flex-shrink: 0;
 }
 
 .marca-logo:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
 .logo-img {
-    height: 95px;
-    width: 95px;
+    height: 65px;
+    width: 65px;
     border-radius: 50%;
-    border: 3px solid var(--primary);
-    padding: 3px;
+    border: 2px solid var(--primary);
+    padding: 2px;
     display: block;
     object-fit: cover; 
     background-color: var(--bg-nav); 
-    box-shadow: 0 0 15px rgba(240, 165, 0, 0.25);
-    transition: all 0.3s ease;
+    box-shadow: 0 0 12px rgba(240, 165, 0, 0.25);
 }
 
 .header-scrolled .logo-img {
-    height: 75px;
-    width: 75px;
+    height: 65px;
+    width: 65px;
 }
 
 .nombre-empresa {
     color: var(--primary);
-    font-size: 2.3rem;
+    font-size: 1.8rem;
     font-weight: 900;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    text-shadow: 0 0 12px rgba(240, 165, 0, 0.35);
+    text-shadow: 0 0 10px rgba(240, 165, 0, 0.35);
     white-space: nowrap;
-    transition: font-size 0.3s ease;
 }
 
 .header-scrolled .nombre-empresa {
-    font-size: 1.9rem;
+    font-size: 1.8rem;
 }
 
 nav {
@@ -359,24 +356,41 @@ h3::after {
 }
 
 .grid-productos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Tarjeta Glassmorphism */
+.grid-productos .tarjeta,
+.producto-item {
+    flex: 0 1 270px;
+    width: 270px;
+    height: 485px; /* Altura perfecta sin recortes */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: default;
+    user-select: none; /* Mantiene la flecha limpia sin cursor de texto */
+}
+
+/* Tarjeta Glassmorphism Compacta y Uniforme */
 .tarjeta {
     background: var(--bg-card);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 20px;
+    padding: 18px 15px;
+    border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
+    cursor: default;
 }
 
 .tarjeta::before {
@@ -388,80 +402,76 @@ h3::after {
 }
 
 .tarjeta:hover {
-    transform: translateY(-15px);
+    transform: translateY(-8px);
     background: var(--bg-card-hover);
     border-color: rgba(240, 165, 0, 0.3);
-    box-shadow: 0 20px 40px rgba(240, 165, 0, 0.15);
-}
-
-.producto-item {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    box-shadow: 0 15px 30px rgba(240, 165, 0, 0.15);
 }
 
 .foto-producto {
     width: 100%;
-    height: 220px;
+    height: 150px;
     object-fit: contain;
     background-color: transparent; 
-    border-radius: 12px;
-    margin-bottom: 15px;
-    transition: transform 0.6s ease;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.4s ease;
     display: block;
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 3px 8px rgba(0,0,0,0.45));
     flex-shrink: 0;
+    cursor: default;
 }
 
 .tarjeta:hover .foto-producto {
-    transform: scale(1.08);
-}
-
-.tarjeta h4 {
-    color: var(--text-light);
-    font-size: 1.4rem;
-    margin-bottom: 8px;
-    font-weight: 700;
+    transform: scale(1.05);
 }
 
 .producto-item h4 {
-    min-height: 3.2rem;
+    color: var(--text-light);
+    font-size: 1.12rem;
+    font-weight: 700;
+    height: 46px;
+    margin: 0 0 4px 0;
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1.25;
-}
-
-.tarjeta p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
+    text-align: center;
+    cursor: default;
 }
 
 .producto-item p {
-    min-height: 2.8rem;
+    color: var(--text-muted);
+    font-size: 0.83rem;
+    height: 56px;
+    margin: 0 0 6px 0;
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1.35;
-    margin-bottom: 10px;
+    text-align: center;
+    overflow: visible;
+    cursor: default;
 }
 
 .precio {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--primary);
     font-weight: 800;
-    font-size: 1.5rem;
-    margin: 15px 0;
+    font-size: 1.25rem;
+    height: 32px;
+    margin: 0 0 10px 0;
     text-shadow: 0 2px 10px rgba(240, 165, 0, 0.2);
-}
-
-.producto-item .precio {
-    margin-top: auto;
-    margin-bottom: 15px;
+    cursor: default;
 }
 
 .producto-item .acciones-producto {
-    margin-top: 0;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .btn-wsp {
@@ -469,10 +479,11 @@ h3::after {
     background-color: var(--wsp-color);
     color: white;
     text-decoration: none;
-    padding: 12px;
+    padding: 10px;
     border-radius: 8px;
     font-weight: bold;
-    margin-top: 15px;
+    margin-top: 0;
+    font-size: 0.92rem;
     transition: all 0.3s ease;
     box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
 }
@@ -797,8 +808,8 @@ footer {
     background: transparent;
     color: var(--primary);
     border: none;
-    padding: 10px 15px;
-    font-size: 1.2rem;
+    padding: 6px 12px;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -808,12 +819,12 @@ footer {
 }
 
 .input-qty {
-    width: 50px;
+    width: 45px;
     text-align: center;
     background: transparent;
     border: none;
     color: var(--text-light);
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: bold;
     -moz-appearance: textfield;
 }
@@ -837,9 +848,10 @@ footer {
     color: var(--wsp-color);
     border: 1px solid var(--wsp-color);
     text-decoration: none;
-    padding: 10px;
+    padding: 8px 10px;
     border-radius: 8px;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 0.85rem;
     transition: all 0.3s ease;
     width: 100%;
 }
@@ -1654,4 +1666,170 @@ footer {
     .calc-options-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ========================================================
+   ESTILOS PARA PÁGINA DE CATÁLOGO Y CTA DESTACADOS
+   ======================================================== */
+
+/* Botón "Ver Catálogo Completo" en Inicio */
+.ver-mas-catalogo-container {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.btn-ver-todo-catalogo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 36px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary) 0%, #d48800 100%);
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(240, 165, 0, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-ver-todo-catalogo:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(240, 165, 0, 0.5);
+    color: #fff;
+}
+
+.btn-ver-todo-catalogo i {
+    transition: transform 0.3s ease;
+}
+
+.btn-ver-todo-catalogo:hover i {
+    transform: translateX(4px);
+}
+
+/* Hero / Encabezado de la página catalogo.html */
+.catalogo-hero {
+    padding: 120px 20px 40px;
+    text-align: center;
+    background: radial-gradient(circle at 50% 30%, rgba(240, 165, 0, 0.08) 0%, transparent 70%);
+}
+
+.catalogo-hero h1 {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.catalogo-hero p {
+    color: var(--text-muted);
+    max-width: 650px;
+    margin: 0 auto 30px;
+    font-size: 1.05rem;
+}
+
+/* Barra de Búsqueda */
+.buscador-container {
+    max-width: 550px;
+    margin: 0 auto 25px;
+    position: relative;
+}
+
+.buscador-box {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(240, 165, 0, 0.35);
+    border-radius: 50px;
+    padding: 6px 18px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.buscador-box:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(240, 165, 0, 0.35);
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.buscador-box i {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-right: 12px;
+}
+
+.buscador-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1rem;
+    font-family: inherit;
+    padding: 8px 0;
+}
+
+.buscador-input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.buscador-clear {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 5px;
+    display: none;
+}
+
+.buscador-clear:hover {
+    color: #fff;
+}
+
+/* Contador de resultados */
+.catalogo-contador-info {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+.catalogo-sin-resultados {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-muted);
+    grid-column: 1 / -1;
+}
+
+.catalogo-sin-resultados i {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    opacity: 0.6;
+    display: block;
+}
+
+/* Banner de Ayuda / WhatsApp en Catálogo */
+.catalogo-wsp-banner {
+    margin-top: 60px;
+    padding: 35px 25px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(240, 165, 0, 0.08) 100%);
+    border: 1px solid rgba(37, 211, 102, 0.3);
+    border-radius: 16px;
+}
+
+.catalogo-wsp-banner h4 {
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.catalogo-wsp-banner p {
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 20px;
+    font-size: 0.95rem;
 }

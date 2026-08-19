@@ -1,7 +1,8 @@
-const CACHE_NAME = 'mr-alquileres-cache-v19';
+const CACHE_NAME = 'mr-alquileres-cache-v27';
 const urlsToCache = [
   '/',
   '/index.html',
+  '/catalogo.html',
   '/style.css',
   '/script.js',
   '/img/logo.jpg',

@@ -42,13 +42,13 @@
     }
     </script>
 
-    <link rel="stylesheet" href="style.css?v=19">
+    <link rel="stylesheet" href="style.css?v=27">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="manifest" href="manifest.json">
     <!-- Script para animaciones y catálogo -->
-    <script src="script.js?v=19" defer></script>
+    <script src="script.js?v=27" defer></script>
 </head>
 
 <body>
@@ -61,7 +61,7 @@
 
             <nav>
                 <a href="#inicio">Inicio</a>
-                <a href="#catalogo">Catálogo</a>
+                <a href="catalogo.html">Catálogo</a>
                 <a href="#calculadora">Calculadora</a>
                 <a href="#galeria">Galería</a>
                 <a href="#faq">Preguntas Frecuentes</a>
@@ -80,7 +80,7 @@
                     <p>Alquiler de sillas, mesas y accesorios en La Chorrera, Arraiján y Panamá. Garantizamos calidad y
                         puntualidad.</p>
                     <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <a href="#catalogo" class="btn"><i class="fa-solid fa-chair"></i> Ver Catálogo</a>
+                        <a href="catalogo.html" class="btn"><i class="fa-solid fa-chair"></i> Ver Catálogo</a>
                         <a href="#calculadora" class="btn" style="background: transparent; border: 2px solid var(--primary); color: #fff;"><i class="fa-solid fa-calculator"></i> Calcular Mobiliario</a>
                     </div>
                 </div>
@@ -91,23 +91,25 @@
             </div>
         </section>
 
-        <!-- NUESTRO CATÁLOGO -->
+        <!-- PRODUCTOS DESTACADOS -->
         <section id="catalogo" class="container">
             <div class="titulo-centro">
-                <h3>Nuestro Catálogo</h3>
+                <span style="color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; display: block; margin-bottom: 8px;">
+                    <i class="fa-solid fa-star"></i> Lo Más Solicitado
+                </span>
+                <h3>Productos Destacados</h3>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 10px;">Los favoritos para fiestas y reuniones en La Chorrera, Arraiján y Panamá Oeste.</p>
             </div>
 
-            <!-- Filtros del Catálogo -->
-            <div class="filtros-catalogo">
-                <button class="btn-filtro active" data-filter="todos">Todos</button>
-                <button class="btn-filtro" data-filter="sillas">Sillas</button>
-                <button class="btn-filtro" data-filter="mesas">Mesas</button>
-                <button class="btn-filtro" data-filter="toldas">Toldas</button>
-                <button class="btn-filtro" data-filter="otros">Otros</button>
+            <div class="grid-productos" id="lista-productos" data-mode="featured">
+                <!-- Los productos destacados se cargarán dinámicamente vía Javascript -->
             </div>
 
-            <div class="grid-productos" id="lista-productos">
-                <!-- Los productos se cargarán dinámicamente vía Javascript -->
+            <div class="ver-mas-catalogo-container">
+                <a href="catalogo.html" class="btn-ver-todo-catalogo">
+                    <span><i class="fa-solid fa-store"></i> Ver Catálogo Completo y Accesorios</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
             </div>
         </section>
 
