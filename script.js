@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initMRAlquileres() {
     // Efecto de Header al hacer scroll
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
@@ -321,10 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    renderCatalog();
-    actualizarCarritoUI();
-
-    // Modal UI
+    // Modal UI y elementos del carrito
     const modalCarrito = document.getElementById('modal-carrito');
     const btnCarritoFlotante = document.getElementById('btn-carrito-flotante');
     const closeModal = document.getElementById('close-modal');
@@ -351,6 +348,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    renderCatalog();
+    actualizarCarritoUI();
+
     function actualizarCarritoUI() {
         try {
             localStorage.setItem('mr_carrito', JSON.stringify(carrito));
@@ -367,11 +367,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (carrito.length === 0) {
             carritoItemsContainer.innerHTML = '<p class="carrito-vacio">No has añadido productos aún.</p>';
             carritoTotalPrecio.textContent = '$0.00';
-            btnEnviarWsp.disabled = true;
+            if (btnEnviarWsp) btnEnviarWsp.disabled = true;
             return;
         }
 
-        btnEnviarWsp.disabled = false;
+        if (btnEnviarWsp) btnEnviarWsp.disabled = false;
+        carritoItemsContainer.innerHTML = '';
         let totalPrecio = 0;
 
         carrito.forEach((item, index) => {
@@ -406,40 +407,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Enviar a WhatsApp
-    btnEnviarWsp.addEventListener('click', () => {
-        if (carrito.length === 0) return;
+    if (btnEnviarWsp) {
+        btnEnviarWsp.addEventListener('click', () => {
+            if (carrito.length === 0) return;
 
-        let mensaje = "Hola MR Alquileres, deseo solicitar la siguiente cotización:%0A%0A";
-        let total = 0;
+            let mensaje = "Hola MR Alquileres, deseo solicitar la siguiente cotización:%0A%0A";
+            let total = 0;
 
-        carrito.forEach(item => {
-            const subtotal = item.price * item.quantity;
-            total += subtotal;
-            mensaje += `- ${item.quantity}x ${item.name} ($${subtotal.toFixed(2)})%0A`;
+            carrito.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                mensaje += `- ${item.quantity}x ${item.name} ($${subtotal.toFixed(2)})%0A`;
+            });
+
+            mensaje += `%0A*Subtotal (Solo Mobiliario): $${total.toFixed(2)}*%0A`;
+            mensaje += `_Nota: Pendiente calcular costo de transporte y depósito de garantía._%0A%0A`;
+            mensaje += `Quedo atento a la disponibilidad, gracias.`;
+
+            const url = `https://wa.me/50761130277?text=${mensaje}`;
+            window.open(url, '_blank');
         });
-
-        mensaje += `%0A*Subtotal (Solo Mobiliario): $${total.toFixed(2)}*%0A`;
-        mensaje += `_Nota: Pendiente calcular costo de transporte y depósito de garantía._%0A%0A`;
-        mensaje += `Quedo atento a la disponibilidad, gracias.`;
-
-        const url = `https://wa.me/50761130277?text=${mensaje}`;
-        window.open(url, '_blank');
-    });
+    }
 
     // --- LÓGICA DE PREGUNTAS FRECUENTES (FAQ) ---
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const questionBtn = item.querySelector('.faq-question');
-        questionBtn.addEventListener('click', () => {
-            // Cerrar todos los demás
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
+        if (questionBtn) {
+            questionBtn.addEventListener('click', () => {
+                // Cerrar todos los demás
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                // Alternar el actual
+                item.classList.toggle('active');
             });
-            // Alternar el actual
-            item.classList.toggle('active');
-        });
+        }
     });
 
     // --- LÓGICA DE LIGHTBOX PARA LA GALERÍA ---
@@ -452,6 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentImageIndex = 0;
 
     function updateLightboxImage(index) {
+        if (!lightboxImg || galeriaItems.length === 0) return;
         if (index < 0) {
             currentImageIndex = galeriaItems.length - 1;
         } else if (index >= galeriaItems.length) {
@@ -462,43 +468,53 @@ document.addEventListener('DOMContentLoaded', () => {
         lightboxImg.src = galeriaItems[currentImageIndex].src;
     }
 
-    galeriaItems.forEach((img, index) => {
-        img.parentElement.addEventListener('click', () => {
-            currentImageIndex = index;
-            updateLightboxImage(currentImageIndex);
-            lightbox.classList.add('show');
+    if (lightbox && lightboxImg) {
+        galeriaItems.forEach((img, index) => {
+            if (img.parentElement) {
+                img.parentElement.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    updateLightboxImage(currentImageIndex);
+                    lightbox.classList.add('show');
+                });
+            }
         });
-    });
 
-    lightboxClose.addEventListener('click', () => {
-        lightbox.classList.remove('show');
-    });
-
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            lightbox.classList.remove('show');
+        if (lightboxClose) {
+            lightboxClose.addEventListener('click', () => {
+                lightbox.classList.remove('show');
+            });
         }
-    });
 
-    lightboxPrev.addEventListener('click', () => {
-        updateLightboxImage(currentImageIndex - 1);
-    });
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('show');
+            }
+        });
 
-    lightboxNext.addEventListener('click', () => {
-        updateLightboxImage(currentImageIndex + 1);
-    });
-
-    // Soporte para teclado (Flechas y Escape)
-    document.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('show')) return;
-        if (e.key === 'ArrowLeft') {
-            updateLightboxImage(currentImageIndex - 1);
-        } else if (e.key === 'ArrowRight') {
-            updateLightboxImage(currentImageIndex + 1);
-        } else if (e.key === 'Escape') {
-            lightbox.classList.remove('show');
+        if (lightboxPrev) {
+            lightboxPrev.addEventListener('click', () => {
+                updateLightboxImage(currentImageIndex - 1);
+            });
         }
-    });
+
+        if (lightboxNext) {
+            lightboxNext.addEventListener('click', () => {
+                updateLightboxImage(currentImageIndex + 1);
+            });
+        }
+
+        // Soporte para teclado (Flechas y Escape)
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('show')) return;
+            if (e.key === 'ArrowLeft') {
+                updateLightboxImage(currentImageIndex - 1);
+            } else if (e.key === 'ArrowRight') {
+                updateLightboxImage(currentImageIndex + 1);
+            } else if (e.key === 'Escape') {
+                lightbox.classList.remove('show');
+            }
+        });
+    }
 
     // --- ENVÍO DEL FORMULARIO DE CONTACTO VÍA AJAX (Sin salir de la página) ---
     const contactForm = document.getElementById('contact-form');
@@ -560,8 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rangeInvitados = document.getElementById('calc-range-invitados');
     const badgePersonas = document.getElementById('calc-badge-personas');
     const btnPresets = document.querySelectorAll('.btn-preset');
-    const radiosSillas = document.querySelectorAll('input[name="calc-silla"]');
-    const radiosMesas = document.querySelectorAll('input[name="calc-mesa"]');
+    const radioCards = document.querySelectorAll('.calc-radio-card');
     const checkManteles = document.getElementById('calc-check-manteles');
     const cardManteles = document.getElementById('calc-card-manteles');
     const mantelesSubtext = document.getElementById('calc-manteles-subtext');
@@ -574,22 +589,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let paqueteActual = [];
 
     function recalcularEvento() {
-        if (!rangeInvitados) return;
+        const range = document.getElementById('calc-range-invitados');
+        if (!range) return;
 
-        const numInvitados = parseInt(rangeInvitados.value);
-        badgePersonas.textContent = `${numInvitados} invitados`;
+        const numInvitados = parseInt(range.value) || 50;
+        const badge = document.getElementById('calc-badge-personas');
+        if (badge) {
+            badge.textContent = `${numInvitados} invitados`;
+        }
 
         // 1. Sillas
-        const sillaSeleccionada = document.querySelector('input[name="calc-silla"]:checked').value;
-        const sillaInfo = catalogData.find(p => p.id === sillaSeleccionada);
+        const sillaChecked = document.querySelector('input[name="calc-silla"]:checked');
+        const sillaId = sillaChecked ? sillaChecked.value : 'p1';
+        const sillaInfo = catalogData.find(p => p.id === sillaId) || { id: 'p1', name: 'Sillas Plásticas', price: 0.50 };
         const cantSillas = numInvitados;
         const subtotalSillas = cantSillas * sillaInfo.price;
 
         // 2. Mesas
-        const mesaSeleccionada = document.querySelector('input[name="calc-mesa"]:checked').value;
-        const mesaInfo = catalogData.find(p => p.id === mesaSeleccionada);
+        const mesaChecked = document.querySelector('input[name="calc-mesa"]:checked');
+        const mesaId = mesaChecked ? mesaChecked.value : 'p4';
+        const mesaInfo = catalogData.find(p => p.id === mesaId) || { id: 'p4', name: 'Mesas Rectangulares 6"', price: 6.00 };
         // Rectangulares (p4) caben 6 personas, Cuadradas (p3) caben 4 personas
-        const capacidadMesa = mesaSeleccionada === 'p4' ? 6 : 4;
+        const capacidadMesa = mesaId === 'p4' ? 6 : 4;
         const cantMesas = Math.ceil(numInvitados / capacidadMesa);
         const subtotalMesas = cantMesas * mesaInfo.price;
 
@@ -613,29 +634,44 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
 
         // 3. Manteles (Solo para mesas cuadradas p3)
-        if (mesaSeleccionada === 'p4') {
+        const checkM = document.getElementById('calc-check-manteles');
+        const cardM = document.getElementById('calc-card-manteles');
+        const textM = document.getElementById('calc-manteles-subtext');
+
+        if (mesaId === 'p4') {
             // Mesas rectangulares: deshabilitar manteles
-            if (checkManteles) checkManteles.disabled = true;
-            if (cardManteles) {
-                cardManteles.style.opacity = '0.45';
-                cardManteles.style.pointerEvents = 'none';
+            if (checkM) {
+                checkM.disabled = true;
+                checkM.checked = false;
             }
-            if (mantelesSubtext) {
-                mantelesSubtext.textContent = 'No disponible para mesas rectangulares';
+            if (cardM) {
+                cardM.style.opacity = '0.45';
+                cardM.style.pointerEvents = 'none';
+                cardM.classList.remove('active');
+            }
+            if (textM) {
+                textM.textContent = 'No disponible para mesas rectangulares';
             }
         } else {
             // Mesas cuadradas: habilitar manteles
-            if (checkManteles) checkManteles.disabled = false;
-            if (cardManteles) {
-                cardManteles.style.opacity = '1';
-                cardManteles.style.pointerEvents = 'auto';
+            if (checkM) {
+                checkM.disabled = false;
             }
-            if (mantelesSubtext) {
-                mantelesSubtext.textContent = 'Variedad de colores ($1.50 c/u)';
+            if (cardM) {
+                cardM.style.opacity = '1';
+                cardM.style.pointerEvents = 'auto';
+                if (checkM && checkM.checked) {
+                    cardM.classList.add('active');
+                } else {
+                    cardM.classList.remove('active');
+                }
+            }
+            if (textM) {
+                textM.textContent = 'Variedad de colores ($1.50 c/u)';
             }
 
-            if (checkManteles && checkManteles.checked) {
-                const mantelInfo = catalogData.find(p => p.id === 'p5');
+            if (checkM && checkM.checked) {
+                const mantelInfo = catalogData.find(p => p.id === 'p5') || { id: 'p5', name: 'Manteles de Colores', price: 1.50 };
                 const cantManteles = cantMesas;
                 const subtotalManteles = cantManteles * mantelInfo.price;
                 paqueteActual.push({
@@ -650,104 +686,187 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 4. Toldas
-        if (checkToldas && checkToldas.checked) {
-            if (numInvitados <= 35) {
-                const toldaInfo = catalogData.find(p => p.id === 'p6'); // Tolda 3x6 ($40)
-                paqueteActual.push({
-                    id: toldaInfo.id,
-                    name: toldaInfo.name,
-                    price: toldaInfo.price,
-                    quantity: 1,
-                    subtotal: toldaInfo.price * 1,
-                    icon: 'fa-campground'
-                });
-            } else if (numInvitados <= 70) {
-                const toldaInfo = catalogData.find(p => p.id === 'p6');
-                paqueteActual.push({
-                    id: toldaInfo.id,
-                    name: toldaInfo.name,
-                    price: toldaInfo.price,
-                    quantity: 2,
-                    subtotal: toldaInfo.price * 2,
-                    icon: 'fa-campground'
-                });
-            } else {
-                const toldaInfo = catalogData.find(p => p.id === 'p7'); // Tolda Premium 6x6 ($200)
-                const cantToldasGrandes = Math.max(1, Math.ceil(numInvitados / 60));
-                paqueteActual.push({
-                    id: toldaInfo.id,
-                    name: toldaInfo.name,
-                    price: toldaInfo.price,
-                    quantity: cantToldasGrandes,
-                    subtotal: toldaInfo.price * cantToldasGrandes,
-                    icon: 'fa-campground'
-                });
+        const checkT = document.getElementById('calc-check-toldas');
+        if (checkT) {
+            const cardT = checkT.closest('.calc-checkbox-card');
+            if (cardT) {
+                cardT.classList.toggle('active', checkT.checked);
+            }
+            if (checkT.checked) {
+                if (numInvitados <= 35) {
+                    const toldaInfo = catalogData.find(p => p.id === 'p6') || { id: 'p6', name: 'Tolda 3x6 metros', price: 40.00 };
+                    paqueteActual.push({
+                        id: toldaInfo.id,
+                        name: toldaInfo.name,
+                        price: toldaInfo.price,
+                        quantity: 1,
+                        subtotal: toldaInfo.price * 1,
+                        icon: 'fa-campground'
+                    });
+                } else if (numInvitados <= 70) {
+                    const toldaInfo = catalogData.find(p => p.id === 'p6') || { id: 'p6', name: 'Tolda 3x6 metros', price: 40.00 };
+                    paqueteActual.push({
+                        id: toldaInfo.id,
+                        name: toldaInfo.name,
+                        price: toldaInfo.price,
+                        quantity: 2,
+                        subtotal: toldaInfo.price * 2,
+                        icon: 'fa-campground'
+                    });
+                } else {
+                    const toldaInfo = catalogData.find(p => p.id === 'p7') || { id: 'p7', name: 'Tolda Premium 6x6 metros', price: 200.00 };
+                    const cantToldasGrandes = Math.max(1, Math.ceil(numInvitados / 60));
+                    paqueteActual.push({
+                        id: toldaInfo.id,
+                        name: toldaInfo.name,
+                        price: toldaInfo.price,
+                        quantity: cantToldasGrandes,
+                        subtotal: toldaInfo.price * cantToldasGrandes,
+                        icon: 'fa-campground'
+                    });
+                }
             }
         }
 
         // Renderizar lista de items recomendados
-        calcItemsList.innerHTML = '';
-        let totalEstimado = 0;
+        const itemsList = document.getElementById('calc-items-list');
+        const totalPrecioElem = document.getElementById('calc-total-precio');
 
-        paqueteActual.forEach(item => {
-            totalEstimado += item.subtotal;
-            const row = document.createElement('div');
-            row.className = 'calc-item-row';
-            row.innerHTML = `
-                <div class="calc-item-left">
-                    <i class="fa-solid ${item.icon}"></i>
-                    <span><strong>${item.quantity}x</strong> ${item.name}</span>
-                </div>
-                <span class="calc-item-price">$${item.subtotal.toFixed(2)}</span>
-            `;
-            calcItemsList.appendChild(row);
-        });
+        if (itemsList) {
+            itemsList.innerHTML = '';
+            let totalEstimado = 0;
 
-        calcTotalPrecio.textContent = `$${totalEstimado.toFixed(2)}`;
+            paqueteActual.forEach(item => {
+                totalEstimado += item.subtotal;
+                const row = document.createElement('div');
+                row.className = 'calc-item-row';
+                row.innerHTML = `
+                    <div class="calc-item-left">
+                        <i class="fa-solid ${item.icon}"></i>
+                        <span><strong>${item.quantity}x</strong> ${item.name}</span>
+                    </div>
+                    <span class="calc-item-price">$${item.subtotal.toFixed(2)}</span>
+                `;
+                itemsList.appendChild(row);
+            });
+
+            if (totalPrecioElem) {
+                totalPrecioElem.textContent = `$${totalEstimado.toFixed(2)}`;
+            }
+        }
     }
 
+    function selectSilla(id) {
+        document.querySelectorAll('input[name="calc-silla"]').forEach(input => {
+            const isMatch = input.value === id;
+            input.checked = isMatch;
+            const parent = input.closest('.calc-radio-card');
+            if (parent) parent.classList.toggle('active', isMatch);
+        });
+        recalcularEvento();
+    }
+
+    function selectMesa(id) {
+        document.querySelectorAll('input[name="calc-mesa"]').forEach(input => {
+            const isMatch = input.value === id;
+            input.checked = isMatch;
+            const parent = input.closest('.calc-radio-card');
+            if (parent) parent.classList.toggle('active', isMatch);
+        });
+        recalcularEvento();
+    }
+
+    function setNumeroInvitados(val) {
+        const num = parseInt(val) || 50;
+        const range = document.getElementById('calc-range-invitados');
+        const badge = document.getElementById('calc-badge-personas');
+        const presets = document.querySelectorAll('.btn-preset');
+
+        if (range) {
+            range.value = num;
+        }
+        if (badge) {
+            badge.textContent = `${num} invitados`;
+        }
+        presets.forEach(b => {
+            if (parseInt(b.getAttribute('data-val')) === num) {
+                b.classList.add('active');
+            } else {
+                b.classList.remove('active');
+            }
+        });
+        recalcularEvento();
+    }
+
+    // Exponer funciones en window para invocación directa desde HTML
+    window.setNumeroInvitados = setNumeroInvitados;
+    window.recalcularEvento = recalcularEvento;
+    window.selectSilla = selectSilla;
+    window.selectMesa = selectMesa;
+
     if (rangeInvitados) {
-        rangeInvitados.addEventListener('input', () => {
-            const val = rangeInvitados.value;
-            btnPresets.forEach(b => {
-                if (b.getAttribute('data-val') === val) {
-                    b.classList.add('active');
-                } else {
-                    b.classList.remove('active');
-                }
-            });
-            recalcularEvento();
+        rangeInvitados.addEventListener('input', (e) => {
+            setNumeroInvitados(e.target.value);
+        });
+        rangeInvitados.addEventListener('change', (e) => {
+            setNumeroInvitados(e.target.value);
         });
 
         btnPresets.forEach(btn => {
-            btn.addEventListener('click', () => {
-                btnPresets.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                rangeInvitados.value = btn.getAttribute('data-val');
-                recalcularEvento();
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const val = btn.getAttribute('data-val');
+                setNumeroInvitados(val);
             });
         });
 
-        radiosSillas.forEach(r => {
-            r.addEventListener('change', (e) => {
-                document.querySelectorAll('input[name="calc-silla"]').forEach(input => {
-                    input.closest('.calc-radio-card').classList.toggle('active', input.checked);
+        // Eventos para radio cards (Sillas y Mesas)
+        radioCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const input = card.querySelector('input[type="radio"]');
+                if (input) {
+                    if (input.name === 'calc-silla') {
+                        selectSilla(input.value);
+                    } else if (input.name === 'calc-mesa') {
+                        selectMesa(input.value);
+                    }
+                }
+            });
+        });
+
+        if (checkManteles) {
+            checkManteles.addEventListener('change', () => {
+                if (cardManteles) cardManteles.classList.toggle('active', checkManteles.checked && !checkManteles.disabled);
+                recalcularEvento();
+            });
+        }
+        if (cardManteles) {
+            cardManteles.addEventListener('click', (e) => {
+                if (e.target !== checkManteles && checkManteles && !checkManteles.disabled) {
+                    checkManteles.checked = !checkManteles.checked;
+                    cardManteles.classList.toggle('active', checkManteles.checked);
+                    recalcularEvento();
+                }
+            });
+        }
+
+        if (checkToldas) {
+            checkToldas.addEventListener('change', () => {
+                const cardToldas = checkToldas.closest('.calc-checkbox-card');
+                if (cardToldas) cardToldas.classList.toggle('active', checkToldas.checked);
+                recalcularEvento();
+            });
+            const cardToldas = checkToldas.closest('.calc-checkbox-card');
+            if (cardToldas) {
+                cardToldas.addEventListener('click', (e) => {
+                    if (e.target !== checkToldas) {
+                        checkToldas.checked = !checkToldas.checked;
+                        cardToldas.classList.toggle('active', checkToldas.checked);
+                        recalcularEvento();
+                    }
                 });
-                recalcularEvento();
-            });
-        });
-
-        radiosMesas.forEach(r => {
-            r.addEventListener('change', (e) => {
-                document.querySelectorAll('input[name="calc-mesa"]').forEach(input => {
-                    input.closest('.calc-radio-card').classList.toggle('active', input.checked);
-                });
-                recalcularEvento();
-            });
-        });
-
-        if (checkManteles) checkManteles.addEventListener('change', recalcularEvento);
-        if (checkToldas) checkToldas.addEventListener('change', recalcularEvento);
+            }
+        }
 
         // Añadir paquete calculado al carrito
         if (btnCalcAddCart) {
@@ -800,4 +919,10 @@ document.addEventListener('DOMContentLoaded', () => {
         recalcularEvento();
     }
 
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMRAlquileres);
+} else {
+    initMRAlquileres();
+}

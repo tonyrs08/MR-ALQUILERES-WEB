@@ -42,13 +42,13 @@
     }
     </script>
 
-    <link rel="stylesheet" href="style.css?v=27">
+    <link rel="stylesheet" href="style.css?v=32">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="manifest" href="manifest.json">
     <!-- Script para animaciones y catálogo -->
-    <script src="script.js?v=27" defer></script>
+    <script src="script.js?v=32" defer></script>
 </head>
 
 <body>
@@ -134,16 +134,16 @@
                             </div>
                             
                             <div class="calc-presets">
-                                <button type="button" class="btn-preset" data-val="20">20</button>
-                                <button type="button" class="btn-preset" data-val="30">30</button>
-                                <button type="button" class="btn-preset active" data-val="50">50</button>
-                                <button type="button" class="btn-preset" data-val="80">80</button>
-                                <button type="button" class="btn-preset" data-val="100">100</button>
-                                <button type="button" class="btn-preset" data-val="150">150</button>
+                                <button type="button" class="btn-preset" data-val="20" onclick="window.setNumeroInvitados && window.setNumeroInvitados(20)">20</button>
+                                <button type="button" class="btn-preset" data-val="30" onclick="window.setNumeroInvitados && window.setNumeroInvitados(30)">30</button>
+                                <button type="button" class="btn-preset active" data-val="50" onclick="window.setNumeroInvitados && window.setNumeroInvitados(50)">50</button>
+                                <button type="button" class="btn-preset" data-val="80" onclick="window.setNumeroInvitados && window.setNumeroInvitados(80)">80</button>
+                                <button type="button" class="btn-preset" data-val="100" onclick="window.setNumeroInvitados && window.setNumeroInvitados(100)">100</button>
+                                <button type="button" class="btn-preset" data-val="150" onclick="window.setNumeroInvitados && window.setNumeroInvitados(150)">150</button>
                             </div>
 
                             <div class="calc-slider-box">
-                                <input type="range" id="calc-range-invitados" min="10" max="250" step="5" value="50" class="calc-slider">
+                                <input type="range" id="calc-range-invitados" min="10" max="250" step="5" value="50" class="calc-slider" oninput="window.setNumeroInvitados && window.setNumeroInvitados(this.value)" onchange="window.setNumeroInvitados && window.setNumeroInvitados(this.value)">
                                 <div class="calc-slider-ticks">
                                     <span>10</span>
                                     <span>50</span>
@@ -160,15 +160,15 @@
                             <div class="calc-option-block">
                                 <span class="calc-subheading"><i class="fa-solid fa-chair"></i> Tipo de Sillas:</span>
                                 <div class="calc-custom-radios">
-                                    <label class="calc-radio-card active">
-                                        <input type="radio" name="calc-silla" value="p1" checked>
+                                    <label class="calc-radio-card active" onclick="window.selectSilla && window.selectSilla('p1')">
+                                        <input type="radio" name="calc-silla" value="p1" checked onchange="window.selectSilla && window.selectSilla('p1')">
                                         <div class="calc-radio-text">
                                             <strong>Plásticas</strong>
                                             <span>$0.50 c/u</span>
                                         </div>
                                     </label>
-                                    <label class="calc-radio-card">
-                                        <input type="radio" name="calc-silla" value="p2">
+                                    <label class="calc-radio-card" onclick="window.selectSilla && window.selectSilla('p2')">
+                                        <input type="radio" name="calc-silla" value="p2" onchange="window.selectSilla && window.selectSilla('p2')">
                                         <div class="calc-radio-text">
                                             <strong>Plegables</strong>
                                             <span>$1.00 c/u</span>
@@ -181,15 +181,15 @@
                             <div class="calc-option-block">
                                 <span class="calc-subheading"><i class="fa-solid fa-table"></i> Tipo de Mesas:</span>
                                 <div class="calc-custom-radios">
-                                    <label class="calc-radio-card active">
-                                        <input type="radio" name="calc-mesa" value="p4" checked>
+                                    <label class="calc-radio-card active" onclick="window.selectMesa && window.selectMesa('p4')">
+                                        <input type="radio" name="calc-mesa" value="p4" checked onchange="window.selectMesa && window.selectMesa('p4')">
                                         <div class="calc-radio-text">
                                             <strong>Rectangulares</strong>
                                             <span>(6 pers) $6.00</span>
                                         </div>
                                     </label>
-                                    <label class="calc-radio-card">
-                                        <input type="radio" name="calc-mesa" value="p3">
+                                    <label class="calc-radio-card" onclick="window.selectMesa && window.selectMesa('p3')">
+                                        <input type="radio" name="calc-mesa" value="p3" onchange="window.selectMesa && window.selectMesa('p3')">
                                         <div class="calc-radio-text">
                                             <strong>Cuadradas</strong>
                                             <span>(4 pers) $3.00</span>
@@ -202,15 +202,15 @@
                         <!-- Adicionales (Manteles / Toldas) -->
                         <div class="calc-extras-grid">
                             <label class="calc-checkbox-card" id="calc-card-manteles">
-                                <input type="checkbox" id="calc-check-manteles" checked>
+                                <input type="checkbox" id="calc-check-manteles" onchange="window.recalcularEvento && window.recalcularEvento()">
                                 <span class="calc-checkmark"></span>
                                 <div class="calc-extra-info">
                                     <strong><i class="fa-solid fa-rug"></i> Manteles (Mesas cuadradas)</strong>
-                                    <span id="calc-manteles-subtext">Variedad de colores ($1.50 c/u)</span>
+                                    <span id="calc-manteles-subtext">No disponible para mesas rectangulares</span>
                                 </div>
                             </label>
                             <label class="calc-checkbox-card">
-                                <input type="checkbox" id="calc-check-toldas">
+                                <input type="checkbox" id="calc-check-toldas" onchange="window.recalcularEvento && window.recalcularEvento()">
                                 <span class="calc-checkmark"></span>
                                 <div class="calc-extra-info">
                                     <strong><i class="fa-solid fa-campground"></i> Tolda para Exterior</strong>
@@ -228,13 +228,26 @@
                         </div>
                         
                         <div class="calc-items-list" id="calc-items-list">
-                            <!-- Inyectado por JS -->
+                            <div class="calc-item-row">
+                                <div class="calc-item-left">
+                                    <i class="fa-solid fa-chair"></i>
+                                    <span><strong>50x</strong> Sillas Plásticas</span>
+                                </div>
+                                <span class="calc-item-price">$25.00</span>
+                            </div>
+                            <div class="calc-item-row">
+                                <div class="calc-item-left">
+                                    <i class="fa-solid fa-table"></i>
+                                    <span><strong>9x</strong> Mesas Rectangulares 6"</span>
+                                </div>
+                                <span class="calc-item-price">$54.00</span>
+                            </div>
                         </div>
 
                         <div class="calc-total-card">
                             <div class="calc-total-row">
                                 <span>Subtotal Estimado:</span>
-                                <strong id="calc-total-precio">$0.00</strong>
+                                <strong id="calc-total-precio">$79.00</strong>
                             </div>
                             <p class="calc-nota-flete">* El flete se calculará según la zona de entrega.</p>
                         </div>

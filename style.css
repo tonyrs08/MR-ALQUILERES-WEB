@@ -164,15 +164,16 @@ header {
 nav {
     display: flex;
     align-items: center;
-    gap: 5px;
-    flex-wrap: nowrap;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 nav a {
     color: var(--text-muted);
     text-decoration: none;
-    padding: 6px 12px;
-    font-size: 1.05rem;
+    padding: 6px 10px;
+    font-size: 0.98rem;
     font-weight: 500;
     white-space: nowrap;
     transition: color 0.3s, transform 0.3s;
@@ -186,19 +187,32 @@ nav a::after {
     width: 0;
     height: 2px;
     bottom: -2px;
-    left: 12px;
-    right: 12px;
+    left: 10px;
+    right: 10px;
     background-color: var(--primary);
     transition: width 0.3s ease;
 }
 
 nav a:hover::after,
 nav a.active::after {
-    width: calc(100% - 24px);
+    width: calc(100% - 20px);
 }
 
 nav a.active, nav a:hover {
     color: var(--primary);
+}
+
+@media (max-width: 1100px) {
+    header .header-content {
+        padding: 0 15px;
+    }
+    .nombre-empresa {
+        font-size: 1.5rem;
+    }
+    nav a {
+        padding: 5px 8px;
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 960px) {
@@ -1377,46 +1391,64 @@ footer {
 }
 
 .calc-slider-box {
-    padding: 5px 0;
+    padding: 10px 0;
+    position: relative;
+    z-index: 5;
 }
 
 .calc-slider {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 8px;
+    height: 10px;
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
     outline: none;
     cursor: pointer;
-    transition: background 0.3s;
+    position: relative;
+    z-index: 5;
+    touch-action: pan-y;
 }
 
 .calc-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: var(--primary);
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(240, 165, 0, 0.8);
-    transition: transform 0.2s, background-color 0.2s;
+    cursor: grab;
+    box-shadow: 0 0 12px rgba(240, 165, 0, 0.9);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    position: relative;
+    z-index: 6;
+}
+
+.calc-slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.25);
 }
 
 .calc-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
+    transform: scale(1.15);
     background: #fff;
 }
 
 .calc-slider::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: var(--primary);
-    cursor: pointer;
+    cursor: grab;
     border: none;
-    box-shadow: 0 0 10px rgba(240, 165, 0, 0.8);
+    box-shadow: 0 0 12px rgba(240, 165, 0, 0.9);
+    position: relative;
+    z-index: 6;
+}
+
+.calc-slider::-moz-range-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.25);
 }
 
 .calc-slider-ticks {
@@ -1462,7 +1494,11 @@ footer {
 }
 
 .calc-radio-card input {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
 }
 
 .calc-radio-card.active {
@@ -1477,6 +1513,7 @@ footer {
     align-items: center;
     width: 100%;
     font-size: 0.9rem;
+    pointer-events: none;
 }
 
 .calc-radio-text strong {
@@ -1504,6 +1541,11 @@ footer {
     padding: 12px 16px;
     cursor: pointer;
     transition: all 0.25s ease;
+}
+
+.calc-checkbox-card.active {
+    border-color: rgba(240, 165, 0, 0.4);
+    background: rgba(240, 165, 0, 0.08);
 }
 
 .calc-checkbox-card input[type="checkbox"] {
