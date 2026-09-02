@@ -175,7 +175,7 @@ function initMRAlquileres() {
             card.style.transitionDelay = `${delay}s`;
 
             card.innerHTML = `
-                <img src="${prod.img}" alt="${prod.name.replace(/"/g, '&quot;')}" class="foto-producto" loading="lazy" width="280" height="220">
+                <img src="${prod.img}" alt="${prod.name.replace(/"/g, '&quot;')}" class="foto-producto" loading="lazy" decoding="async" width="280" height="220">
                 <h4>${prod.name}</h4>
                 <p style="color: #ccc;">${prod.desc}</p>
                 <span class="precio">$${prod.price.toFixed(2)} / unidad</span>
