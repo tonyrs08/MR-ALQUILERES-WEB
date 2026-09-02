@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mr-alquileres-cache-v32';
+const CACHE_NAME = 'mr-alquileres-cache-v34';
 const urlsToCache = [
   '/',
   '/index.html',
